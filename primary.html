@@ -14,7 +14,7 @@
 <body>
     <header>
         <h1>App Inventor For Android</h1>
-        <a href="http://www.baidu.com" id="login">登录</a>
+        <a href="http://www.baidu.com" id="login">登录</a>//这里要跳转登录页面
     </header>
     <div id="top">
         <select class="top_button" id="screen">
@@ -26,7 +26,7 @@
             add.onclick = function () {
                 var name = "";
                 name = prompt("增加的屏幕名为：");
-                //限制一下不同名
+                //这里要限制一下不同名
                 var obj = document.getElementById("screen");
                 obj.options.add(new Option(name, name));
 
@@ -52,7 +52,7 @@
                     var obj = document.getElementById("screen");
                     var num = obj.options.length;
                     obj.options.remove(obj.selectedIndex);
-                    // 要删除右边栏相关内容
+                    // 这里要删除右边栏相关内容
                     var s="obj.selectedIndex.id";
                     alert(s);
                     var obj = document.getElementById("screen");
@@ -113,6 +113,7 @@
                                     btn.innerHTML = "重命名";
                                     span_1.appendChild(btn);
                                     li.appendChild(span_1);
+                                    //重命名完要保留两个按键
                                 }
                                 function addDelBtn(li) {
                                     var span_1 = document.createElement("span");
@@ -135,6 +136,37 @@
                                     var oLi = obj.parentNode.parentNode;
                                     ul.removeChild(oLi);
                                 }
+                                
+                                //右边导航栏下拉
+                                $(function () {
+                                    var Accordion = function (el, multiple) {
+                                        this.el = el || {};
+                                        this.multiple = multiple || false;
+
+                                        // Variables privadas
+                                        var links = this.el.find('.link');
+                                        // Evento
+                                        links.on('click', {
+                                            el: this.el,
+                                            multiple: this.multiple
+                                        }, this.dropdown)
+                                    }
+
+                                    Accordion.prototype.dropdown = function (e) {
+                                        var $el = e.data.el;
+                                        $this = $(this),
+                                            $next = $this.next();
+
+                                        $next.slideToggle();
+                                        $this.parent().toggleClass('open');
+
+                                        if (!e.data.multiple) {
+                                            $el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+                                        };
+                                    }
+
+                                    var accordion = new Accordion($('#accordion'), false);
+                                });
                             </script>
                         </li>
                         <li>
@@ -202,37 +234,6 @@
                     <div id="element">按钮</div>
                 </div>
             </div>
-            <script>
-                $(function () {
-                    var Accordion = function (el, multiple) {
-                        this.el = el || {};
-                        this.multiple = multiple || false;
-
-                        // Variables privadas
-                        var links = this.el.find('.link');
-                        // Evento
-                        links.on('click', {
-                            el: this.el,
-                            multiple: this.multiple
-                        }, this.dropdown)
-                    }
-
-                    Accordion.prototype.dropdown = function (e) {
-                        var $el = e.data.el;
-                        $this = $(this),
-                            $next = $this.next();
-
-                        $next.slideToggle();
-                        $this.parent().toggleClass('open');
-
-                        if (!e.data.multiple) {
-                            $el.find('.submenu').not($next).slideUp().parent().removeClass('open');
-                        };
-                    }
-
-                    var accordion = new Accordion($('#accordion'), false);
-                });
-            </script>
 </body>
 
 </html>
