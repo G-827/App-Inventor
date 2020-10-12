@@ -123,7 +123,7 @@ button,select{
     background: rgb(220, 240, 180);
 }
 /* 第一级目录 */
-.accordion .link,.first span,.sub li a {
+.accordion .link,.first ul,.sub li a,#element {
     cursor: pointer;
     padding: 10px 10px 10px 22px;
     color: #163d1a;
@@ -187,10 +187,13 @@ button,select{
     background: #8eaa9a;
     color: #fff;
 }
-.first span{
+.first ul,#element{
     height: 20px;
     background-color:rgb(220, 240, 180) ;
     display: block;
+}
+.first{
+    list-style: none;
 }
 .sub{
     background: #d5e7d7;
