@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APP Inventor</title>
+    <link rel="stylesheet" type="text/css" href="primary.css">
+    <link rel="stylesheet" type="text/css" href="Font-Awesome-master/css/all.css">
+    <script type="text/javascript" src="9.26.js"></script>
+    <script type="text/javascript" src="https://wow.techbrood.com/libs/jquery/jquery-2.1.1.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>App Inventor For Android</h1>
+        <a href="http://www.baidu.com" id="login">登录</a>
+    </header>
+    <div id="top">
+        <select class="top_button" id="screen">
+            <option value="Screen1">Screen1</option>
+        </select>
+        <button id="add" class="top_button" type="button">增加屏幕</button>
+        <button id="remove" class="top_button" type="button">删除屏幕</button>
+        <script>
+            add.onclick = function () {
+                var name = "";
+                name = prompt("增加的屏幕名为：");
+                //限制一下不同名
+                var obj = document.getElementById("screen");
+                obj.options.add(new Option(name, name));
+
+                var ul_new = document.createElement("ul");
+                ul_new.setAttribute("class", "sub");
+                ul_new.setAttribute("id", name);
+                addLi(ul_new, name);
+                document.getElementById("listbox").appendChild(ul_new);
+                function addLi(ul, text) {
+                    var li_new = document.createElement("li");
+                    li_new.setAttribute("class", "first");
+                    addA(li_new, text);
+                    ul.appendChild(li_new);
+                }
+                function addA(li, text) {
+                    var ul = document.createElement("ul");
+                    ul.innerHTML = text;
+                    li.appendChild(ul);
+                }
+            }
+            remove.onclick = function () {
+                if (confirm("确认删除该屏幕及其相关数据？") == true) {
+                    var obj = document.getElementById("screen");
+                    var num = obj.options.length;
+                    obj.options.remove(obj.selectedIndex);
+                    // 要删除右边栏相关内容
+                    var s="obj.selectedIndex.id";
+                    alert(s);
+                    var obj = document.getElementById("screen");
+                }
+            }
+        </script>
+        <div>
+            <div id="main">
+                <div class="vertical" id="choice">
+                    <div class="title">组件面板</div>
+                    <ul id="accordion" class="accordion">
+                        <li>
+                            <div class="link">
+                                <i class="fa fa-paint-brush"></i>
+                                用户界面
+                                <i class="fa fa-chevron-down"></i>
+                            </div>
+                            <ul class="submenu">
+                                <li>
+                                    <a href="#" title="用于设置按钮" onclick="newItem(0)">按钮</a>
+                                </li>
+                                <li>
+                                    <a href="#" title="用于设置按钮" onclick="newItem(1)">下拉框</a>
+                                </li>
+                                <li>
+                                    <a href="#" title="用于设置按钮" onclick="newItem(2)">文本输入框</a>
+                                </li>
+                                <li>
+                                    <a href="#" title="用于设置按钮" onclick="newItem(3)">复选框</a>
+                                </li>
+                            </ul>
+                            <script>
+                                // 要实现按出12345不一样的名字
+                                function newItem(Index) {
+                                    var s=document.getElementById("itemList");
+                                    var name = new Array();
+                                    name[0] = "按钮";
+                                    name[1] = "下拉框";
+                                    name[2] = "文本输入框";
+                                    name[3] = "复选框";
+                                    var li_new = document.createElement("li");
+                                    addA(li_new, name[Index]);
+                                    addReBtn(li_new);
+                                    addDelBtn(li_new);
+                                    s.appendChild(li_new);
+                                }
+                                function addA(li, text) {
+                                    var a = document.createElement("a");
+                                    a.innerHTML = text;
+                                    li.appendChild(a);
+                                }
+                                function addReBtn(li) {
+                                    var span_1 = document.createElement("span");
+                                    var btn = document.createElement("button");
+                                    btn.setAttribute("type", "button");
+                                    btn.setAttribute("class", "delBtn");
+                                    btn.setAttribute("onclick", "reBtnData(this)");
+                                    btn.innerHTML = "重命名";
+                                    span_1.appendChild(btn);
+                                    li.appendChild(span_1);
+                                }
+                                function addDelBtn(li) {
+                                    var span_1 = document.createElement("span");
+                                    var btn = document.createElement("button");
+                                    btn.setAttribute("type", "button");
+                                    btn.setAttribute("class", "delBtn");
+                                    btn.setAttribute("onclick", "delBtnData(this)");
+                                    btn.innerHTML = "删除";
+                                    span_1.appendChild(btn);
+                                    li.appendChild(span_1);
+                                }
+                                function reBtnData(obj) {
+                                    var ul = document.getElementById("itemList");
+                                    var oLi = obj.parentNode.parentNode;
+                                    var newname = prompt("请输入新名称");
+                                    oLi.innerHTML = newname;
+                                }
+                                function delBtnData(obj) {
+                                    var ul = document.getElementById("itemList");
+                                    var oLi = obj.parentNode.parentNode;
+                                    ul.removeChild(oLi);
+                                }
+                            </script>
+                        </li>
+                        <li>
+                            <div class="link">
+                                <i class="fa fa-code"></i>
+                                界面布局
+                                <i class="fa fa-chevron-down"></i>
+                            </div>
+                            <ul class="submenu">
+                                <li><a href="#">水平布局</a>
+                                </li>
+                                <li><a href="#">垂直布局</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="link">
+                                <i class="fa fa-paint-brush"></i>
+                                多媒体
+                                <i class="fa fa-chevron-down"></i>
+                            </div>
+                            <ul class="submenu">
+                                <li><a href="#">录音机</a></li>
+                                <li><a href="#">音频播放器</a>
+                                </li>
+                                <li><a href="#">照相机</a>
+                                </li>
+                                <li><a href="#">图像选择框</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="link">
+                                <i class="fa fa-paint-brush"></i>
+                                社交应用
+                                <i class="fa fa-chevron-down"></i>
+                            </div>
+                            <ul class="submenu">
+                                <li><a href="#">联系人选择框</a></li>
+                                <li><a href="#">邮箱地址选择框</a>
+                                </li>
+                                <li><a href="#">信息分享器</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="vertical" id="vision">
+                    <div class="title">工作面板</div>
+                    <div class="table" id="current"></div>
+                    <div id="invisibleElement"></div>
+                </div>
+                <div class="vertical" id="module">
+                    <div class="title">组件列表</div>
+                    <div id="listbox">
+                        <ul class="table" id="itemList">
+                            <li class="first">
+                                <ul>Screen1</ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="vertical" id="attribute">
+                    <div class="title">组件属性</div>
+                    <div id="element">按钮</div>
+                </div>
+            </div>
+            <script>
+                $(function () {
+                    var Accordion = function (el, multiple) {
+                        this.el = el || {};
+                        this.multiple = multiple || false;
+
+                        // Variables privadas
+                        var links = this.el.find('.link');
+                        // Evento
+                        links.on('click', {
+                            el: this.el,
+                            multiple: this.multiple
+                        }, this.dropdown)
+                    }
+
+                    Accordion.prototype.dropdown = function (e) {
+                        var $el = e.data.el;
+                        $this = $(this),
+                            $next = $this.next();
+
+                        $next.slideToggle();
+                        $this.parent().toggleClass('open');
+
+                        if (!e.data.multiple) {
+                            $el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+                        };
+                    }
+
+                    var accordion = new Accordion($('#accordion'), false);
+                });
+            </script>
+</body>
+
+</html>
